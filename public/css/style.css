@@ -1,0 +1,16 @@
+table:not(.horizontal) {
+    max-height: none;
+
+}
+
+.name {
+    text-align: center;
+}
+
+table {
+    display: table;
+}
+
+footer {
+    color: blue;
+}

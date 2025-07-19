@@ -1,0 +1,41 @@
+
+// return [
+//     'POST' => [
+//         '/login' => 'Login@store',
+//         '/user/store' => 'User@store'
+//     ],
+//     'GET' => [
+//         '/' => 'Home@index',
+//         '/user/create' => 'User@create',
+//         '/user/[0-9]+' => 'User@show',
+//         '/user/delete/[0-9]+' => 'User@destroy',
+//         '/login' => 'Login@index',
+//         '/logout' => 'Login@destroy'
+//         //'/user/[0-9]+/name/[a-z]+' => 'User@show'
+//     ]
+// ];
+
+// public function run()
+// {
+//     dd($this->routes);
+
+//     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+//     $routes = require ROUTES_PATH . 'Routes.php';
+//     $requestMethod = $_SERVER['REQUEST_METHOD'];
+//     $matchedUri = $this->exactMatchUriInArrayRoutes($uri, $routes[$requestMethod]);
+//     $params = [];
+//     $controller = null;
+
+//     if (empty($matchedUri)) {
+//         $matchedUri = $this->dinamicMatchUriInArrayRoutes($uri, $routes[$requestMethod]);
+//         $uri = explode('/', ltrim($uri, '/'));
+//         $params = $this->extractParams($uri, $matchedUri);
+//         $params = $this->paramsFormat($uri, $params);
+//     }
+//     if (!empty($matchedUri)) {
+//         $controller = Core::loadController($matchedUri, $params);
+//         return $controller;
+//     }
+
+//     throw new Exception('Algo deu errado');
+// }
