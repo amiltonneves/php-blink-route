@@ -25,8 +25,13 @@ class Db
         return self::$conn;
     }
 
-    private function __construct()
+    final private function __construct()
     {
         //invalidação do construtor
+    }
+
+    final private function __clone()
+    {
+        //invalidação do clone
     }
 }

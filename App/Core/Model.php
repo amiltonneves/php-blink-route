@@ -8,6 +8,7 @@ use PDOException;
 abstract class Model
 {
     protected String $table;
+    const ALICE = 'TESTE';
 
     /**
      * Insere um registro no banco de dados
