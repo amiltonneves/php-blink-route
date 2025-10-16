@@ -18,8 +18,8 @@ class Db
                     ';dbname=' .
                     DB_NAME,
                 DB_USER,
-                DB_PASSWORD
-                //,[PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ]
+                DB_PASSWORD,
+                [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ]
             );
         }
         return self::$conn;

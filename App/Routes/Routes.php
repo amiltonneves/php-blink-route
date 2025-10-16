@@ -6,7 +6,7 @@
 $router = new \App\Core\Router();
 
 //------------------------------------------------
-// Set Routes GET 
+// Set Routes GET
 //------------------------------------------------
 $router->get('/', 'Home@index');
 $router->get('/user/create', 'User@create');
@@ -17,7 +17,7 @@ $router->get('/logout', 'Login@destroy');
 // $router->get('/user/[0-9]+/name/[a-z]+', 'User@show');
 
 //------------------------------------------------
-// Set Routes POST 
+// Set Routes POST
 //------------------------------------------------
 $router->post('/login', 'Login@store');
 $router->post('/user/[0-9]+', 'User@save');
@@ -26,7 +26,7 @@ $router->post('/user/store', 'User@store');
 //------------------------------------------------
 // Start Router
 //------------------------------------------------
-$data = $router->run();
+$router->run();
 
 // End Routes ------------------------------------
 //------------------------------------------------

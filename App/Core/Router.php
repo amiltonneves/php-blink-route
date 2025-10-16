@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Core;
 
 use App\Core\Core;
@@ -26,20 +25,21 @@ class Router
 
     public function run()
     {
-        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $routes = $this->routes; //require ROUTES_PATH . 'Routes.php';
+        $uri           = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $routes        = $this->routes; //require ROUTES_PATH . 'Routes.php';
         $requestMethod = $_SERVER['REQUEST_METHOD'];
+
         $matchedUri = $this->exactMatchUriInArrayRoutes($uri, $routes[$requestMethod]);
-        $params = [];
+        $params     = [];
         $controller = null;
 
         if (empty($matchedUri)) {
             $matchedUri = $this->dinamicMatchUriInArrayRoutes($uri, $routes[$requestMethod]);
-            $uri = explode('/', ltrim($uri, '/'));
-            $params = $this->extractParams($uri, $matchedUri);
-            $params = $this->paramsFormat($uri, $params);
+            $uri        = explode('/', ltrim($uri, '/'));
+            $params     = $this->extractParams($uri, $matchedUri);
+            $params     = $this->paramsFormat($uri, $params);
         }
-        if (!empty($matchedUri)) {
+        if (! empty($matchedUri)) {
             $controller = Core::loadController($matchedUri, $params);
             return $controller;
         }
@@ -50,8 +50,8 @@ class Router
     private function exactMatchUriInArrayRoutes($uri, $routes)
     {
         return (array_key_exists($uri, $routes)) ?
-            [$uri => $routes[$uri]] :
-            [];
+        [$uri => $routes[$uri]] :
+        [];
     }
 
     private function dinamicMatchUriInArrayRoutes($uri, $routes)
@@ -62,13 +62,13 @@ class Router
                 $regex = str_replace('/', '\/', ltrim($value, '/'));
                 return preg_match("/^$regex$/", ltrim($uri, '/'));
             },
-            ARRAY_FILTER_USE_KEY //para retornar as chaves do routes ao invés dos valores
+            ARRAY_FILTER_USE_KEY//para retornar as chaves do routes ao invés dos valores
         );
     }
 
     private function extractParams($uri, $matchedUri)
     {
-        if (!empty($matchedUri)) {
+        if (! empty($matchedUri)) {
             $matchedToGetParams = array_keys($matchedUri)[0];
             return array_diff(
                 $uri,

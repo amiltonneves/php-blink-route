@@ -14,7 +14,7 @@ abstract class Controller
      * 
      * @param String $view O nome da view a ser renderizada
      * @param String $title O titulo da view
-     * @param array $data Array associativo com dados
+     * @param array $viewData Array associativo com dados
      * @return void
      */
     protected function view(String $view, String $title, array $viewData = []): void

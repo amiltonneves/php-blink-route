@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Core;
 
 use App\Database\Db;
@@ -8,11 +7,10 @@ use PDOException;
 abstract class Model
 {
     protected String $table;
-    const ALICE = 'TESTE';
 
     /**
      * Insere um registro no banco de dados
-     * 
+     *
      * @param array $data Array associativo com campo => valor para inserção
      */
     public function create(array $data)
@@ -32,7 +30,7 @@ abstract class Model
     }
     /**
      * Busca todos os registros em uma tabela do banco de dados
-     * 
+     *
      * @param String $fields Campos a serem buscados na tabela [separados por virgula]
      * @return array retorna a lista com todos os registros
      */
@@ -51,13 +49,13 @@ abstract class Model
 
     /**
      * Busca um registro em uma tabela com base em um campo
-     * 
+     *
      * @param String $fieldBy Campo que será buscado
      * @param String $by Valor do campo a ser buscado
      * @param String $fields Campos a serem trazidos na consulta
      * @return null|array retorna um array com os dados pesquisados
      */
-    public function findBy($fieldBy, $by, $fields = '*'): null|array
+    public function findBy($fieldBy, $by, $fields = '*'): null | array
     {
         try {
             $connect = Db::connect();
@@ -73,7 +71,7 @@ abstract class Model
 
     /**
      * Atualiza um registro em uma tabela com base em um campo
-     * 
+     *
      * @param String $fieldBy campo a ser buscado
      * @param String $by valor do campo a ser buscado
      * @param array $data Array associativo com campo => valor para atualização
@@ -93,7 +91,7 @@ abstract class Model
             $sql = "update {$this->table} set ";
             $sql .= $columns;
             $sql .= " where {$fieldBy}=:{$fieldBy}";
-            $prepare = $connect->prepare($sql);
+            $prepare        = $connect->prepare($sql);
             $data[$fieldBy] = $by; //Attaching id in array
             return $prepare->execute($data);
         } catch (PDOException $e) {
@@ -104,7 +102,7 @@ abstract class Model
 
     /**
      * Apaga um registro em uma tabela com base em um campo
-     * 
+     *
      * @param String $id Id que terá os registros apagado
      * @return bool retorna se o registro foi apagado
      */
@@ -113,7 +111,7 @@ abstract class Model
         try {
             $connect = Db::connect();
 
-            $sql = "delete from {$this->table} where id = :delete";
+            $sql     = "delete from {$this->table} where id = :delete";
             $prepare = $connect->prepare($sql);
             $prepare->execute($id);
             redirect('/');
