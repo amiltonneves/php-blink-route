@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Core;
 
 use App\Core\Core;
@@ -29,12 +30,12 @@ class Router
         $routes        = $this->routes; //require ROUTES_PATH . 'Routes.php';
         $requestMethod = $_SERVER['REQUEST_METHOD'];
 
-        $matchedUri = $this->exactMatchUriInArrayRoutes($uri, $routes[$requestMethod]);
+        $matchedUri = $this->findExactUriInRoutes($uri, $routes[$requestMethod]);
         $params     = [];
         $controller = null;
 
         if (empty($matchedUri)) {
-            $matchedUri = $this->dinamicMatchUriInArrayRoutes($uri, $routes[$requestMethod]);
+            $matchedUri = $this->findDinamicUriInRoutes($uri, $routes[$requestMethod]);
             $uri        = explode('/', ltrim($uri, '/'));
             $params     = $this->extractParams($uri, $matchedUri);
             $params     = $this->paramsFormat($uri, $params);
@@ -47,14 +48,14 @@ class Router
     }
 
     /*ver para  variáveis dos parâmetros virarem atributos  */
-    private function exactMatchUriInArrayRoutes($uri, $routes)
+    private function findExactUriInRoutes($uri, $routes)
     {
         return (array_key_exists($uri, $routes)) ?
-        [$uri => $routes[$uri]] :
-        [];
+            [$uri => $routes[$uri]] :
+            [];
     }
 
-    private function dinamicMatchUriInArrayRoutes($uri, $routes)
+    private function findDinamicUriInRoutes($uri, $routes)
     {
         return array_filter(
             $routes,
@@ -62,7 +63,7 @@ class Router
                 $regex = str_replace('/', '\/', ltrim($value, '/'));
                 return preg_match("/^$regex$/", ltrim($uri, '/'));
             },
-            ARRAY_FILTER_USE_KEY//para retornar as chaves do routes ao invés dos valores
+            ARRAY_FILTER_USE_KEY //para retornar as chaves do routes ao invés dos valores
         );
     }
 
@@ -77,6 +78,7 @@ class Router
         }
         return [];
     }
+
     private function paramsFormat($uri, $params)
     {
         $paramsData = [];
